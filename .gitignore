@@ -1,0 +1,9 @@
+data/*.db
+data/*.db-shm
+data/*.db-wal
+__pycache__/
+.playwright-cli/
+output/
+*.bak-*
+*.v4-no-ai-images
+.DS_Store

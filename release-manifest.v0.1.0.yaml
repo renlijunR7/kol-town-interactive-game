@@ -1,0 +1,35 @@
+artifact: kol-town-interactive-game
+build_id: kol-town-static-v2-20260903
+version: 0.1.0
+status: NOT_RELEASED
+environment: LOCAL_DEMO
+design_source:
+  provider: Claude Design
+  project_title: KOL主题街区互动游戏
+  project_id: 99a17deb-7444-4612-9c03-4261c4c9ec3f
+entrypoint: index.html
+runtime:
+  type: static_web
+  external_runtime_dependencies: false
+  remote_requests: false
+  local_storage: true
+controls:
+  query_kill_switch: "?disabled=1"
+  storage_kill_switch: "kol_town_kill_switch=1"
+  cta_state: DISABLED_PENDING_APPROVAL
+  reward_mode: LOCAL_SIMULATION_ONLY
+release_gates:
+  brand_authorization: PENDING
+  legal_review: PENDING
+  production_cta: PENDING
+  production_rewards: PENDING
+  analytics_endpoint: PENDING
+  release_owner: PENDING
+rollback:
+  action: Disable the build with either kill switch and restore the previous static artifact.
+  data_note: Local demo progress can be reset from the in-game settings screen.
+verified_viewports:
+  - 360x800
+  - 390x844
+  - 430x932
+

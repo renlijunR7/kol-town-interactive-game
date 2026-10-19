@@ -1,0 +1,103 @@
+brief_version: "0.1.0"
+brief_status: "prototype"
+project:
+  name: "KOL主题街区互动游戏"
+  source_design_project_id: "99a17deb-7444-4612-9c03-4261c4c9ec3f"
+  source_design_file: "KOL小镇 设计稿 v2.dc.html"
+  delivery_boundary: "DEMO / LOCAL"
+objective:
+  primary: "engagement"
+  primary_success_event: "play_complete"
+  primary_kpi: "完成一次小镇成长回合的有效本地会话数"
+  secondary:
+    - "建筑访问率"
+    - "任务完成率"
+    - "换肤与装扮互动率"
+    - "重玩率"
+  target_value: "【待人工录入】"
+  target_window: "【待人工录入】"
+  funnel_boundary: "仅统计本地游戏内事件；不包含注册、KYC、交易、钱包连接或真实奖励"
+audience:
+  region: "HK（ASSUMPTION，仅用于原型验证，发布前必须复核）"
+  language: "zh-Hans"
+  minimum_age: "18（ASSUMPTION，因 Web3/行情题材采用更保守原型边界）"
+  lifecycle: "mixed"
+  accessibility:
+    - "支持键盘和触控"
+    - "可见焦点"
+    - "减少动态效果偏好"
+    - "颜色不作为唯一状态提示"
+channels:
+  - type: "kol"
+    kol_id: "kol_luna_demo"
+    placement: "本地 H5 预览"
+brand:
+  legal_entity: "【待人工录入】"
+  approved_assets: "Claude Design 项目中的视觉稿仅用于本地原型参照；发布授权待确认"
+  approved_claims: []
+  prohibited_claims:
+    - "收益保证"
+    - "投资回报承诺"
+    - "真实代币或可兑现奖励暗示"
+  required_disclosures:
+    - "DEMO / LOCAL"
+    - "砖块为虚拟游戏积分，无现金或投资价值"
+    - "行情预测仅为互动玩法，不构成投资建议"
+gameplay:
+  mechanic: "collection + tap_challenge"
+  fantasy: "作为 KOL 小镇市长，通过完成任务、访问建筑和升级地标，让主题街区逐步繁荣"
+  core_loop:
+    - "接受市长引导"
+    - "在等距小镇地图选择建筑"
+    - "完成答题、预测、直播签到或社区任务"
+    - "获得仅限本地的虚拟砖块与繁荣度"
+    - "升级建筑并解锁装扮"
+    - "完成当日成长目标后查看结算与重玩"
+  target_duration_seconds: 180
+  rounds: 5
+  difficulty: "1-5，默认 2；原型内仅影响答题与计时"
+  success: "完成 3 个有效任务并将小镇繁荣度提升到 100"
+  failure: "计时任务失败时可立即重试，不造成真实资产损失"
+screens:
+  - "新手引导 · 市长对话式"
+  - "小镇主界面 · 沉浸式地图"
+  - "建筑抽屉弹层"
+  - "任务与积分中心"
+  - "榜单"
+  - "形象定制"
+  - "HTX 旗舰大楼"
+  - "首次升级 CTA 弹窗"
+  - "钱包 / 权益卡包（模拟）"
+  - "Vera 小镇换皮演示"
+cta:
+  type: "none"
+  label: "DEMO：查看活动说明"
+  destination: "DISABLED_PENDING_APPROVAL"
+reward:
+  type: "none"
+  value: "无真实奖励；砖块仅为当前浏览器中的虚拟进度"
+  eligibility: "不适用"
+  inventory: "不适用"
+compliance:
+  legal_review: "pending"
+  privacy: "不采集 PII、钱包地址、KYC 文件或联系方式"
+  manual_review_required: true
+commercial:
+  currency: "USD"
+  build_budget_cap: "【待人工录入】"
+  media_budget_cap: "【待人工录入】"
+  reward_budget_cap: "【待人工录入】"
+  kol_settlement_budget_cap: "【待人工录入】"
+release:
+  target: "web_h5 local"
+  launch_window: "【待人工录入】"
+  release_owner: "【待人工录入】"
+  kill_switch_owner: "【待人工录入】"
+  rollback_target: "上一份已验证的本地静态构建"
+open_items:
+  - "品牌法律主体与素材授权"
+  - "正式投放地区与年龄要求"
+  - "真实 CTA、落地页与深链"
+  - "任何真实奖励、库存、履约与结算"
+  - "埋点接收端与数据保留政策"
+

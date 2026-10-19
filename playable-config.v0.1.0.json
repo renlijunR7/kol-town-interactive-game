@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0.0",
+  "playable_id": "plb_kol_town_demo",
+  "campaign_id": "cmp_kol_town_demo",
+  "contract_version": "0.1.0",
+  "version": "0.1.0",
+  "status": "draft",
+  "template_id": "kol_town_isometric_v2",
+  "locales": {"default": "zh-Hans", "supported": ["zh-Hans"]},
+  "presentation": {
+    "title": "KOL 小镇",
+    "tone": "明亮、沉浸、精致的 KOL 主题街区",
+    "theme": "Luna 紫晶小镇，可切换 Vera 霓虹主题",
+    "logo_asset_id": "asset_demo_logo",
+    "color_tokens": {
+      "primary": "#7357F5",
+      "secondary": "#FFBF5B",
+      "background": "#F3F0FF",
+      "text": "#27233A"
+    },
+    "copy_pack": {
+      "intro_title": "欢迎来到 Luna 的 KOL 小镇",
+      "intro_body": "完成街区任务，收集虚拟砖块，让小镇繁荣起来。",
+      "start_label": "开始建设",
+      "success_title": "小镇今日繁荣度达成！",
+      "failure_title": "差一点，再试一次",
+      "replay_label": "再玩一轮",
+      "cta_label": "DEMO：查看活动说明",
+      "reward_eligibility": "本地演示不提供真实奖励",
+      "reward_terms": "砖块为虚拟游戏积分，无现金、投资或转让价值。",
+      "disclaimer": "DEMO / LOCAL · 行情预测仅为互动玩法，不构成投资建议。"
+    }
+  },
+  "gameplay": {
+    "mechanic": "collection",
+    "core_loop": "引导 → 地图选建筑 → 完成任务 → 获得虚拟砖块和繁荣度 → 升级地标 → 结算与重玩",
+    "rounds": 5,
+    "target_duration_seconds": 180,
+    "difficulty": {"minimum": 1, "maximum": 5, "default": 2},
+    "input_modes": ["tap", "keyboard"],
+    "state_transitions": [
+      {"from": "intro", "event": "start", "to": "playing", "guard": null},
+      {"from": "playing", "event": "open_building", "to": "playing", "guard": null},
+      {"from": "playing", "event": "task_complete", "to": "playing", "guard": "completed_tasks < 3"},
+      {"from": "playing", "event": "goal_reached", "to": "success", "guard": "completed_tasks >= 3 && prosperity >= 100"},
+      {"from": "playing", "event": "task_failed", "to": "failure", "guard": null},
+      {"from": "playing", "event": "open_wallet", "to": "reward", "guard": null},
+      {"from": "reward", "event": "close", "to": "playing", "guard": null},
+      {"from": "playing", "event": "exit", "to": "exit", "guard": null},
+      {"from": "failure", "event": "retry", "to": "playing", "guard": null},
+      {"from": "success", "event": "replay", "to": "replay", "guard": null},
+      {"from": "replay", "event": "restart", "to": "playing", "guard": null},
+      {"from": "success", "event": "share", "to": "share", "guard": null},
+      {"from": "success", "event": "view_info", "to": "cta", "guard": null}
+    ],
+    "scoring": {
+      "enabled": true,
+      "rule": "Each unique completed task grants 20–45 virtual bricks and 25–40 prosperity; upgrade consumes local bricks only.",
+      "minimum": 0,
+      "maximum": 9999
+    }
+  },
+  "screens": [
+    {"screen_id": "onboarding", "state": "intro", "copy_keys": ["intro_title", "intro_body", "start_label"], "asset_ids": ["asset_demo_logo", "asset_demo_mayor"], "actions": ["start", "skip"]},
+    {"screen_id": "town", "state": "playing", "copy_keys": ["disclaimer"], "asset_ids": ["asset_demo_vector_town"], "actions": ["open_building", "open_tasks", "open_ranking", "open_avatar", "open_wallet", "change_theme", "pause"]},
+    {"screen_id": "building_drawer", "state": "playing", "copy_keys": ["disclaimer"], "asset_ids": ["asset_demo_buildings"], "actions": ["start_task", "upgrade_building", "close"]},
+    {"screen_id": "task_center", "state": "playing", "copy_keys": [], "asset_ids": ["asset_demo_icons"], "actions": ["start_task", "claim_local_progress", "close"]},
+    {"screen_id": "ranking", "state": "playing", "copy_keys": [], "asset_ids": ["asset_demo_avatars"], "actions": ["change_tab", "close"]},
+    {"screen_id": "avatar", "state": "playing", "copy_keys": [], "asset_ids": ["asset_demo_avatar_parts"], "actions": ["equip", "save", "close"]},
+    {"screen_id": "flagship", "state": "playing", "copy_keys": ["disclaimer"], "asset_ids": ["asset_demo_flagship"], "actions": ["copy_demo_code", "view_perks", "close"]},
+    {"screen_id": "wallet", "state": "reward", "copy_keys": ["reward_eligibility", "reward_terms"], "asset_ids": ["asset_demo_wallet"], "actions": ["simulate_connect", "view_cards", "close"]},
+    {"screen_id": "success", "state": "success", "copy_keys": ["success_title", "replay_label", "cta_label", "reward_terms"], "asset_ids": ["asset_demo_success"], "actions": ["replay", "share", "view_info"]},
+    {"screen_id": "failure", "state": "failure", "copy_keys": ["failure_title"], "asset_ids": ["asset_demo_failure"], "actions": ["retry", "exit"]}
+  ],
+  "cta": {
+    "cta_id": "cta_demo_info",
+    "type": "none",
+    "label_key": "cta_label",
+    "destination_id": "DISABLED_PENDING_APPROVAL",
+    "allowed_states": ["success", "cta", "exit"],
+    "open_mode": "same_context"
+  },
+  "reward_presentation": {
+    "reward_id": "reward_none_demo",
+    "type": "none",
+    "eligibility_copy_key": "reward_eligibility",
+    "terms_copy_key": "reward_terms",
+    "claim_action": "show_demo_only_notice"
+  },
+  "field_authority": {
+    "locked_fields": ["cta.type", "cta.destination_id", "reward_presentation.type", "constraints", "telemetry.consent_behavior"],
+    "editable_fields": ["presentation.copy_pack", "presentation.theme", "gameplay.optional_tasks", "screens"],
+    "agentic_fields": ["presentation.theme", "gameplay.task_order", "gameplay.hint_frequency"],
+    "runtime_fields": ["session_id", "screen_id", "score", "bricks", "prosperity", "completed_tasks", "theme"]
+  },
+  "runtime_policy": {
+    "segmentation_inputs": ["theme_preference", "completed_tasks", "reduced_motion"],
+    "agentic_bounds": [
+      {"field": "presentation.theme", "allowed_values": ["luna", "vera"]},
+      {"field": "gameplay.task_order", "allowed_values": ["default", "community_first"]},
+      {"field": "gameplay.hint_frequency", "allowed_values": ["normal", "helpful"]}
+    ],
+    "experiment_id": null,
+    "variant_id": "luna_default",
+    "fallback_behavior": "Use Luna theme, default task order and local-only progress; never enable external CTA or real reward."
+  },
+  "telemetry": {
+    "required_events": ["impression", "play_start", "valid_interaction", "level_start", "level_complete", "play_complete", "play_fail", "replay", "share", "cta_view", "cta_click", "reward_eligible", "reward_claim", "return_session", "error"],
+    "common_properties": ["event_id", "event_time", "timestamp", "campaign_id", "playable_id", "contract_version", "playable_version", "playable_config_version", "build_id", "session_id", "screen_id", "task_id", "building_id", "theme", "viewport", "is_test", "channel_id", "creative_id", "kol_id", "link_id", "locale", "region", "device_class", "consent_state"],
+    "deduplication_strategy": "Generate one event_id per emission and enforce one play_complete per run.",
+    "consent_behavior": "Store telemetry in memory only. Do not transmit or persist user identifiers in DEMO / LOCAL."
+  },
+  "build": {
+    "target": "web_h5",
+    "entry": "index.html",
+    "asset_base": "./assets/",
+    "minimum_viewport_width": 320,
+    "supported_orientations": ["portrait"],
+    "dependency_lock": "dependency-free static HTML/CSS/JavaScript; no remote runtime dependency",
+    "environment": "local"
+  },
+  "constraints": {
+    "approved_asset_ids": ["asset_demo_logo", "asset_demo_mayor", "asset_demo_vector_town", "asset_demo_buildings", "asset_demo_icons", "asset_demo_avatars", "asset_demo_avatar_parts", "asset_demo_flagship", "asset_demo_wallet", "asset_demo_success", "asset_demo_failure"],
+    "prohibited_phrases": ["稳赚", "保本", "保证收益", "提现", "真实代币奖励"],
+    "required_disclosures": ["DEMO / LOCAL", "砖块为虚拟游戏积分，无现金或投资价值。", "行情预测仅为互动玩法，不构成投资建议。"],
+    "privacy_prohibited_fields": ["KYC documents", "government ID", "wallet private key", "seed phrase", "precise location", "email", "phone", "private_key", "raw_kyc_document", "seed_phrase"],
+    "manual_review_required": true
+  },
+  "metadata": {
+    "created_at": "2026-09-03T00:00:00+08:00",
+    "updated_at": "2026-09-03T00:00:00+08:00",
+    "created_by": "Codex using Claude Design reference",
+    "notes": ["Full interactive local prototype requested by user.", "Visual baseline: KOL小镇 设计稿 v2.dc.html.", "No business code modified."]
+  }
+}
